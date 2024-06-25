@@ -9,11 +9,12 @@ on:
  workflow_call:
     inputs:
       docker_repo_dev:
-        description: 'Docker repository for development'
+        description: 'Docker repository for development environment'
         required: true
         type: string
+
       docker_repo_prod:
-        description: 'Docker repository for production'
+        description: 'Docker repository for production environment'
         required: true
         type: string
     
@@ -37,7 +38,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
-      - name: Build and Push Docker image to Development
+      - name: Build and Push Docker image to Development 
         if: ${{ github.event_name == 'push' || github.event.workflow_call }}
         env:
           DOCKER_REPO: ${{ inputs.docker_repo_dev || secrets.DOCKER_REPO_DEV }}
